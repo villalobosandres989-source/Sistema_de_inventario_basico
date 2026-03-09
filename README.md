@@ -1,0 +1,2 @@
+# Sistema_de_inventario_basico
+Sistema_de_inventario_basico_para_consola
