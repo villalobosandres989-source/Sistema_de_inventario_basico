@@ -1,5 +1,4 @@
 
-
 nombre = ""
 precio = 0.0
 cantidad = 0
@@ -26,4 +25,3 @@ costo_total = precio * cantidad
 
 print("\nDatos ingresados:")
 print(f"Producto: {nombre} || Precio: {precio:.3f} $|| Cantidad: {cantidad} || Costo total: {costo_total:.3f} $")
-
