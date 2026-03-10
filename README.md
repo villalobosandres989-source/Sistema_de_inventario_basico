@@ -1,2 +1,2 @@
 # Sistema_de_inventario_basico
-Sistema_de_inventario_basico_para_consola
+Aplicacion de consola para el manejo de productos de un inventario
