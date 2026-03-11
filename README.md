@@ -33,12 +33,17 @@ Precio total: $3.600
 # 🧩 Código del programa
 
 ```
+# Inicializar las variables nombre, precio y cantidad
+
 nombre = ""
 precio = 0.0
 cantidad = 0
 
+# Solicitar el nombre del producto al usuario
+
 nombre = input("Ingrese el nombre: ")
 
+# Bucle para solicitar el precio hasta que el usuario ingrese un número válido
 
 while True:
     try:
@@ -47,6 +52,8 @@ while True:
     except ValueError:
         print("Valor inválido, ingrese un número válido")
 
+# Bucle para solicitar la cantidad hasta que el usuario ingrese un número entero válido
+
 while True:
     try:
         cantidad = int(input("Ingrese la cantidad: "))
@@ -54,6 +61,7 @@ while True:
     except ValueError:
         print("Valor inválido, ingrese un número entero")
 
+# Mostrar la información del producto y el costo total formateado
 
 costo_total = precio * cantidad
 
