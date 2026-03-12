@@ -1,8 +1,3 @@
-
-inventario = []
-
-producto = {"nombre": "Lapiz","precio": 500, "cantidad": 3}
-
 while True:
 
     print("=== MENU PRINCIPAL ===")
@@ -11,23 +6,14 @@ while True:
     print("3. Calcular estadísticas")
     print("4. Salir")
 
-
-    opcion = int(input("Ingrese una opción\n"))
+    try:
+        opcion = int(input("Ingrese una opción\n"))
+    except ValueError:
+        print("Error: Por favor, ingrese un número válido.")
 
     if opcion == 1:
         nombre = input("Nombre del producto:\n")
         precio = float(input("Ingrese el precio:\n"))
         cantidad = int(input("Ingrese la cantidad:\n"))
-        
-
-        inventario.append(producto)
-
-        print("Producto agregado exitosamente!!")
-
-    elif opcion == 2:
-        print(inventario)
-
-
-    else:
-        break
+        print(f"Producto '{nombre}' agregado al inventario."
 
