@@ -6,7 +6,7 @@ cantidad = 0
 
 # Solicitar el nombre del producto al usuario
 
-nombre = input("Ingrese el nombre: ")
+nombre = input("Ingrese el nombre del producto: ")
 
 # Bucle para solicitar el precio hasta que el usuario ingrese un número válido
 
