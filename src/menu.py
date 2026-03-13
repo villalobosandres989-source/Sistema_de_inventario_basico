@@ -16,4 +16,3 @@ while True:
         precio = float(input("Ingrese el precio:\n"))
         cantidad = int(input("Ingrese la cantidad:\n"))
         print(f"Producto '{nombre}' agregado al inventario."
-
