@@ -15,4 +15,15 @@ while True:
         nombre = input("Nombre del producto:\n")
         precio = float(input("Ingrese el precio:\n"))
         cantidad = int(input("Ingrese la cantidad:\n"))
-        print(f"Producto '{nombre}' agregado al inventario."
+        print(f"Producto '{nombre}' agregado al inventario.")
+
+    elif opcion == 2:
+        print("Opcion no disponible aún")
+
+    elif opcion == 3:
+        print("Opcion no disponible aún")
+
+
+    elif opcion == 4:
+        print("Saliendo...")
+        break
