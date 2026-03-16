@@ -1,35 +1,57 @@
-# Inicializar las variables nombre, precio y cantidad
-nombre = ""
-precio = 0.0
-cantidad = 0
+def menu():
 
-# Solicitar el nombre del producto al usuario
-nombre = input("Ingrese el nombre del producto: ")
+    print("=== MENU PRINCIPAL ===")
+    print("1. Agregar un producto")
+    print("2. Mostrar inventario")
+    print("3. Calcular estadísticas")
+    print("4. Salir")
+
+inventario = []
+
+def agregar_producto():
+        nombre = input("Nombre del producto:\n")
+        precio = float(input('Ingrese el precio: '))
+        cantidad = int(input('Ingrese la cantidad: '))
+        producto = {
+            'Nombre': nombre,
+            'Precio': precio,
+            'Cantidad': cantidad
+        }
+        inventario.append(producto)
+
+        print(f"Producto '{nombre}' agregado al inventario.\n")
 
 
-# Bucle para solicitar el precio hasta que el usuario ingrese un número válido
+
+
+
+
+
+
+
+
 
 while True:
+    menu()
+
     try:
-        precio = float(input("Ingresa el precio: "))
-        break
+        opcion = int(input("Ingrese una opción\n"))
     except ValueError:
-        print("Valor inválido, ingrese un número válido")
-        
-# Bucle para solicitar la cantidad hasta que el usuario ingrese un número entero válido
+        print("Error: Por favor, ingrese un número válido.\n")
 
-while True:
-    try:
-        cantidad = int(input("Ingrese la cantidad: "))
+    if opcion == 1:
+        agregar_producto()
+        
+
+    elif opcion == 2:
+        print('INVENTARIO')
+        print(inventario)
+        print('')
+
+    elif opcion == 3:
+        print("Opcion no disponible aún\n")
+
+
+    elif opcion == 4:
+        print("Saliendo...")
         break
-    except ValueError:
-        print("Valor inválido, ingrese un número entero")
-        
-# Calcular el costo total multiplicando el precio por la cantidad
-
-costo_total = precio * cantidad
-
-# Mostrar la información del producto y el costo total formateado
-
-print("\nDatos ingresados:")
-print(f"Producto: {nombre} || Precio: {precio:.3f} $|| Cantidad: {cantidad} || Costo total: {costo_total:.3f} $")
