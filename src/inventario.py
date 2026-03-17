@@ -65,27 +65,6 @@ def eliminar_producto():
 
     print("Producto no encontrado.\n")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 while True:
     menu()
 
@@ -118,7 +97,3 @@ while True:
         time.sleep(1)
         break
 
-
-    
-       
-    
