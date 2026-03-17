@@ -31,28 +31,21 @@ def ver_inventario():
 
 
 
-def actualizar_producto():
-    nombre_buscar = input("¿Cuál producto desea actualizar?\n")
+def actualizar_producto(nombre_buscar, nuevo_nombre, nuevo_precio, nueva_cantidad):
     for producto in inventario:
-        if producto['Nombre'].lower() == nombre_buscar.lower():
-            print("Producto encontrado. Ingrese los nuevos datos.\n")
-            nuevo_nombre = input("Nuevo nombre: ")
-            nuevo_precio = float(input("Nuevo precio: "))
-            nueva_cantidad = int(input("Nueva cantidad: "))
+                if producto['Nombre'].lower() == nombre_buscar.lower():
+                    print("Producto encontrado. Ingrese los nuevos datos.\n")
 
-            producto['Nombre'] = nuevo_nombre
-            producto['Precio'] = nuevo_precio
-            producto['Cantidad'] = nueva_cantidad
-
-            print("Producto actualizado correctamente.\n")
-            return
+                producto['Nombre'] = nuevo_nombre
+                producto['Precio'] = nuevo_precio
+                producto['Cantidad'] = nueva_cantidad
+                print("Producto actualizado correctamente.\n")
+                return
         
-    print("Producto no encontrado.\n")
+    
 
 
 def eliminar_producto():
-
-    nombre_buscar = input("Ingrese el nombre del producto que desea eliminar:\n")
 
     for producto in inventario:
 
@@ -75,8 +68,20 @@ while True:
 
     if opcion == 1:
         nombre = input("Nombre del producto:\n")
-        precio = float(input('Ingrese el precio: '))
-        cantidad = int(input('Ingrese la cantidad: '))
+        while True:
+            try:
+
+                precio = float(input('Ingrese el precio: '))
+                break
+            except ValueError:
+                print('Ingrese un valor numerico')
+        while True:
+            try:
+
+                cantidad = int(input('Ingrese la cantidad: '))
+                break
+            except ValueError:
+                print('Ingrese un numero entero positivo')
 
         agregar_producto(nombre, precio, cantidad)
         
@@ -86,11 +91,44 @@ while True:
         print('')
 
     elif opcion == 3:
-        actualizar_producto()
+        
+        if len(inventario) ==0:
+            print('El inventario está vacío\n')
+            continue
+        else:
+            nombre_buscar = input("¿Cuál producto desea actualizar?\n")
+            
+            print("Producto no encontrado.\n")
+            nuevo_nombre = input("Nuevo nombre: ")
+        while True:
+                
+                try:
+                    nuevo_precio = float(input("Nuevo precio: "))
+                    if nuevo_precio < 0:
+
+                        print('Ingrese un numero positivo')
+                    else:
+                        break
+                    
+                except ValueError:
+                    print('Ingrese un valor numérico')
+        while True:
+                
+                try:
+                    nueva_cantidad = int(input("Nueva cantidad: "))
+                    if nueva_cantidad < 0:
+                        print('Ingrese un numero positivo')
+                    else:
+                        break
+                        
+                except ValueError:
+                    print('Ingrese un numero entero positivo')
+        actualizar_producto(nombre_buscar, nuevo_nombre, nuevo_precio, nueva_cantidad)
 
 
     elif opcion == 4:
-        eliminar_producto()
+        nombre_buscar = input("Ingrese el nombre del producto que desea eliminar:\n")
+        eliminar_producto(nombre_buscar)
 
     elif opcion == 5:
         print('Saliendo...')
