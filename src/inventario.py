@@ -97,6 +97,7 @@ while True:
         if len(inventario) ==0:
             print('El inventario está vacío\n')
             continue
+        cancelar = False
         while True:
             nombre_buscar = input("¿Cuál producto desea actualizar?\n")
             existe = any(producto['Nombre'].lower() == nombre_buscar.lower() for producto in inventario)
@@ -104,7 +105,19 @@ while True:
             if existe:
                  break
             else:
-                 print('Producto no encontrado. Intente nuevamente.\n')
+                 print('Producto no encontrado')
+                 opcion_reintentar = input('Desea intentar de nuevo? (si/no): ').lower()
+
+                 if opcion_reintentar == 'no':
+                     print('\nInventaro actual:')
+                     ver_inventario()
+                     print('')
+                     cancelar = True
+                     break
+                 elif opcion_reintentar != 'si':
+                     print('opción inválida')
+        if cancelar:
+            continue
         nuevo_nombre = input('Nuevo nombre: ')
 
         while True:
@@ -130,11 +143,30 @@ while True:
 
 
     elif opcion == 4:
-        if len(inventario) == 0:
-            print('El inventario está vacío\n')
+        cancelar = False
+        while True:
+            nombre_buscar = input('Que producto desea eliminar:\n')
+
+            existe = any(producto['Nombre'].lower() == nombre_buscar.lower() for producto in inventario)
+
+            if existe:
+                eliminar_producto(nombre_buscar)
+                break
+            else:
+                print('Producto no encontrado')
+
+                opcion_reintentar = input('Volver a intentar? (si/no): ').lower()
+
+                if opcion_reintentar == 'no':
+                    print('\nInventario actual:')
+                    ver_inventario()
+                    print('')
+                    cancelar == True
+                    break
+                elif opcion_reintentar != 'si':
+                    print('Opcion Inválida.\n')
+        if cancelar:
             continue
-        nombre_buscar = input("Ingrese el nombre del producto que desea eliminar:\n")
-        eliminar_producto(nombre_buscar)
 
     elif opcion == 5:
         print('Saliendo...')
