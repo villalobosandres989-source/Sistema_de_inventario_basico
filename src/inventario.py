@@ -6,7 +6,8 @@ def menu():
     print("2. Mostrar inventario")
     print("3. Actualizar producto")
     print("4. Eliminar producto")
-    print("5. Salir")
+    print("5. Calcular estadísticas")
+    print("6. Salir")
 
 
 inventario = []
@@ -29,8 +30,6 @@ def ver_inventario():
         for i in inventario:
             print(f'Nombre: {i['Nombre']} | Precio: {i['Precio']}$ | Cantidad: {i['Cantidad']}')
 
-
-
 def actualizar_producto(nombre_buscar, nuevo_nombre, nuevo_precio, nueva_cantidad):
     for producto in inventario:
         if producto['Nombre'].lower() == nombre_buscar.lower():
@@ -43,9 +42,6 @@ def actualizar_producto(nombre_buscar, nuevo_nombre, nuevo_precio, nueva_cantida
             return True
     return False
         
-    
-
-
 def eliminar_producto(nombre_buscar):
     
 
@@ -59,6 +55,14 @@ def eliminar_producto(nombre_buscar):
             return
 
     print("Producto no encontrado.\n")
+    
+def calcular_estadisticas():
+    contar = len(inventario)
+    total = sum(productos['Precio'] * productos['Cantidad'] for productos in inventario)
+    print(f'La cantidad total de productos es: {contar}')
+    print(f'El valor total del inventario es: {total}$')
+    print('')
+    
 
 while True:
     menu()
@@ -167,8 +171,13 @@ while True:
                     print('Opcion Inválida.\n')
         if cancelar:
             continue
-
+        
+        
     elif opcion == 5:
+        calcular_estadisticas()
+        
+
+    elif opcion == 6:
         print('Saliendo...')
         time.sleep(1)
         break
