@@ -27,25 +27,27 @@ def ver_inventario():
         print('El inventario está vacío')
     else:
         for i in inventario:
-            print(f'Nombre: {i['Nombre']} | Precio: {i['Precio']:.3f} | Cantidad: {i['Cantidad']}')
+            print(f'Nombre: {i['Nombre']} | Precio: {i['Precio']}$ | Cantidad: {i['Cantidad']}')
 
 
 
 def actualizar_producto(nombre_buscar, nuevo_nombre, nuevo_precio, nueva_cantidad):
     for producto in inventario:
-                if producto['Nombre'].lower() == nombre_buscar.lower():
-                    print("Producto encontrado. Ingrese los nuevos datos.\n")
+        if producto['Nombre'].lower() == nombre_buscar.lower():
+            print("Producto encontrado. Ingrese los nuevos datos.\n")
 
-                producto['Nombre'] = nuevo_nombre
-                producto['Precio'] = nuevo_precio
-                producto['Cantidad'] = nueva_cantidad
-                print("Producto actualizado correctamente.\n")
-                return
+            producto['Nombre'] = nuevo_nombre
+            producto['Precio'] = nuevo_precio
+            producto['Cantidad'] = nueva_cantidad
+            print("Producto actualizado correctamente.\n")
+            return True
+    return False
         
     
 
 
-def eliminar_producto():
+def eliminar_producto(nombre_buscar):
+    
 
     for producto in inventario:
 
@@ -95,38 +97,42 @@ while True:
         if len(inventario) ==0:
             print('El inventario está vacío\n')
             continue
-        else:
+        while True:
             nombre_buscar = input("¿Cuál producto desea actualizar?\n")
-            
-            print("Producto no encontrado.\n")
-            nuevo_nombre = input("Nuevo nombre: ")
-        while True:
-                
-                try:
-                    nuevo_precio = float(input("Nuevo precio: "))
-                    if nuevo_precio < 0:
+            existe = any(producto['Nombre'].lower() == nombre_buscar.lower() for producto in inventario)
 
-                        print('Ingrese un numero positivo')
-                    else:
-                        break
-                    
-                except ValueError:
-                    print('Ingrese un valor numérico')
+            if existe:
+                 break
+            else:
+                 print('Producto no encontrado. Intente nuevamente.\n')
+        nuevo_nombre = input('Nuevo nombre: ')
+
         while True:
-                
-                try:
-                    nueva_cantidad = int(input("Nueva cantidad: "))
-                    if nueva_cantidad < 0:
-                        print('Ingrese un numero positivo')
-                    else:
-                        break
-                        
-                except ValueError:
-                    print('Ingrese un numero entero positivo')
+            try:
+                 nuevo_precio = float(input('Nuevo Precio: '))
+                 if nuevo_precio < 0:
+                      print('Ingrese un numero positivo')
+                 else:
+                      break
+            except ValueError:
+                 print('Ingrese un valor numérico')
+        while True:
+            try:
+                 nueva_cantidad = int(input('Nueva Cantidad: '))
+                 if nueva_cantidad < 0:
+                      print('Ingrese un número positivo')
+                 else:
+                      break
+            except ValueError:
+                 print('Ingrese un número entero positivo')         
+            
         actualizar_producto(nombre_buscar, nuevo_nombre, nuevo_precio, nueva_cantidad)
 
 
     elif opcion == 4:
+        if len(inventario) == 0:
+            print('El inventario está vacío\n')
+            continue
         nombre_buscar = input("Ingrese el nombre del producto que desea eliminar:\n")
         eliminar_producto(nombre_buscar)
 
