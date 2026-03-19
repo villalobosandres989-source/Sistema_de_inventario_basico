@@ -52,7 +52,7 @@ def eliminar_producto(nombre_buscar):
             inventario.remove(producto)
 
             print("Producto eliminado correctamente.\n")
-            return
+            
 
     print("Producto no encontrado.\n")
     
@@ -66,14 +66,16 @@ def calcular_estadisticas():
 
 while True:
     menu()
-
-    try:
-        opcion = int(input("Ingrese una opción\n"))
-    except ValueError:
-        print("Error: Por favor, ingrese un número válido.\n")
+    while True:
+        try:
+            opcion = int(input("Ingrese una opción\n"))
+            break
+        except ValueError:
+            print("Error: Por favor, ingrese un número válido.\n")
+            menu()
 
     if opcion == 1:
-        nombre = input("Nombre del producto:\n")
+        nombre = input("Nombre del producto: ")
         while True:
             try:
 
@@ -107,41 +109,41 @@ while True:
             existe = any(producto['Nombre'].lower() == nombre_buscar.lower() for producto in inventario)
 
             if existe:
-                 break
+                break
             else:
-                 print('Producto no encontrado')
-                 opcion_reintentar = input('Desea intentar de nuevo? (si/no): ').lower()
+                print('Producto no encontrado')
+                opcion_reintentar = input('Desea intentar de nuevo? (si/no): ').lower()
 
-                 if opcion_reintentar == 'no':
-                     print('\nInventaro actual:')
-                     ver_inventario()
-                     print('')
-                     cancelar = True
-                     break
-                 elif opcion_reintentar != 'si':
-                     print('opción inválida')
+                if opcion_reintentar == 'no':
+                    print('\nInventaro actual:')
+                    ver_inventario()
+                    print('')
+                    cancelar = True
+                    break
+                elif opcion_reintentar != 'si':
+                    print('opción inválida')
         if cancelar:
             continue
         nuevo_nombre = input('Nuevo nombre: ')
 
         while True:
             try:
-                 nuevo_precio = float(input('Nuevo Precio: '))
-                 if nuevo_precio < 0:
-                      print('Ingrese un numero positivo')
-                 else:
-                      break
+                nuevo_precio = float(input('Nuevo Precio: '))
+                if nuevo_precio < 0:
+                    print('Ingrese un numero positivo')
+                else:
+                    break
             except ValueError:
-                 print('Ingrese un valor numérico')
+                print('Ingrese un valor numérico')
         while True:
             try:
-                 nueva_cantidad = int(input('Nueva Cantidad: '))
-                 if nueva_cantidad < 0:
-                      print('Ingrese un número positivo')
-                 else:
-                      break
+                nueva_cantidad = int(input('Nueva Cantidad: '))
+                if nueva_cantidad < 0:
+                    print('Ingrese un número positivo')
+                else:
+                    break
             except ValueError:
-                 print('Ingrese un número entero positivo')         
+                print('Ingrese un número entero positivo')         
             
         actualizar_producto(nombre_buscar, nuevo_nombre, nuevo_precio, nueva_cantidad)
 
@@ -181,4 +183,7 @@ while True:
         print('Saliendo...')
         time.sleep(1)
         break
+    
+    else:
+        print('Ingresa una opcion del menú\n')
 
