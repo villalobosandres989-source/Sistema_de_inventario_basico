@@ -28,7 +28,7 @@ def ver_inventario():
         print('El inventario está vacío')
     else:
         for i in inventario:
-            print(f'Nombre: {i['Nombre']} | Precio: {i['Precio']}$ | Cantidad: {i['Cantidad']}')
+            print(f'Nombre: {i['Nombre']} | Precio: {i['Precio']}$ | Cantidad: {i['Cantidad']} unidades')
 
 def actualizar_producto(p, N_nombre, N_precio, N_cantidad):
         p['Nombre'] = N_nombre
