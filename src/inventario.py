@@ -30,26 +30,15 @@ def ver_inventario():
         for i in inventario:
             print(f'Nombre: {i['Nombre']} | Precio: {i['Precio']}$ | Cantidad: {i['Cantidad']}')
 
-def actualizar_producto(producto, nuevo_nombre, nuevo_precio, nueva_cantidad):
-        producto['Nombre'] = nuevo_nombre
-        producto['Precio'] = nuevo_precio
-        producto['Cantidad'] = nueva_cantidad
+def actualizar_producto(p, N_nombre, N_precio, N_cantidad):
+        p['Nombre'] = N_nombre
+        p['Precio'] = N_precio
+        p['Cantidad'] = N_cantidad
         print("Producto actualizado correctamente.\n")
         
         
-def eliminar_producto(nombre_buscar):
-    
-
-    for producto in inventario:
-
-        if producto['Nombre'].lower() == nombre_buscar.lower():
-
-            inventario.remove(producto)
-
-            print("Producto eliminado correctamente.\n")
-            
-
-    print("Producto no encontrado.\n")
+def eliminar_producto(eliminar_p):
+    inventario.remove(eliminar_p)
     
 def calcular_estadisticas():
     contar = len(inventario)
@@ -94,54 +83,37 @@ while True:
         print('')
 
     elif opcion == 3:
-        
         if len(inventario) == 0:
-            print('Inventario vacio\n')
+            print('El inventario está vacío\n')
         else:
-            nombre_buscar = input('Nombre del producto que desea actualizar: ')
-        
-        producto_encontrado = None
-        for producto in inventario:
-            if producto['Nombre'].lower() == nombre_buscar.lower():
-                producto_encontrado = producto
-                break
-        if producto_encontrado:
-            print('Producto encontrado')
-            
-            nuevo_nombre = input('Nuevo nombre: ')
-            nuevo_precio = float(input('Nuevo precio: '))
-            nueva_cantidad = int(input('Nueva Cantidad: '))
-            
-            actualizar_producto(producto_encontrado, nuevo_nombre, nuevo_precio, nueva_cantidad)
-        else:
-            print('Producto no encontrado\n')
-
+            p_actualizar = input('Que producto desea actualizar: ')
+            for p in inventario:
+                if p['Nombre'].lower() == p_actualizar.lower():
+                    print('Producto encontrado. Ingrese los nuevos datos')
+                    N_nombre = input('Nuevo nombre: ')
+                    N_precio = float(input('Nuevo precio: '))
+                    N_cantidad = int(input('Nueva cantidad: '))
+                    actualizar_producto(p, N_nombre, N_precio, N_cantidad)
+                else:
+                    print('Producto no encontrado\n')
+                    
+                    
     elif opcion == 4:
-        cancelar = False
-        while True:
-            nombre_buscar = input('Que producto desea eliminar:\n')
-
-            existe = any(producto['Nombre'].lower() == nombre_buscar.lower() for producto in inventario)
-
-            if existe:
-                eliminar_producto(nombre_buscar)
-                break
-            else:
-                print('Producto no encontrado')
-
-                opcion_reintentar = input('Volver a intentar? (si/no): ').lower()
-
-                if opcion_reintentar == 'no':
-                    print('\nInventario actual:')
-                    ver_inventario()
-                    print('')
-                    cancelar == True
-                    break
-                elif opcion_reintentar != 'si':
-                    print('Opcion Inválida.\n')
-        if cancelar:
-            continue
-        
+        if len(inventario) == 0:
+            print('El inventario está vacío\n')
+        else:
+             eliminar_p = input('Que producto desea eliminar: ')
+             
+             for producto in inventario:
+               if producto['Nombre'].lower() == eliminar_p.lower():
+                   print('Producto encontrado')
+                   eliminar_producto(producto)
+                   print(f'Producto {producto['Nombre']} eliminado\n')
+                   break
+               else:
+                   print(f'Producto {eliminar_p} no existe')
+                 
+                 
         
     elif opcion == 5:
         calcular_estadisticas()
