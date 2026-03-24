@@ -36,7 +36,7 @@ while True:
         
 
     elif opcion == 2:
-        src.inventario.ver_inventario()
+        src.inventario.ver_inventario(inventario)
         print('')
 
     elif opcion == 3:
