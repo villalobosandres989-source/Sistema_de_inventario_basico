@@ -1,16 +1,19 @@
+import time
+import src.inventario
 
-from src.inventario import *
+
+inventario = []
 
 
 while True:
-    menu()
+    src.inventario.menu()
     while True:
         try:
             opcion = int(input("Ingrese una opción\n"))
             break
         except ValueError:
             print("Error: Por favor, ingrese un número válido.\n")
-            menu()
+            src.inventario.menu()
 
     if opcion == 1:
         nombre = input("Nombre del producto: ")
@@ -29,11 +32,11 @@ while True:
             except ValueError:
                 print('Ingrese un numero entero positivo')
 
-        agregar_producto(nombre, precio, cantidad)
+        src.inventario.agregar_producto(nombre, precio, cantidad)
         
 
     elif opcion == 2:
-        ver_inventario()
+        src.inventario.ver_inventario()
         print('')
 
     elif opcion == 3:
@@ -47,7 +50,7 @@ while True:
                     N_nombre = input('Nuevo nombre: ')
                     N_precio = float(input('Nuevo precio: '))
                     N_cantidad = int(input('Nueva cantidad: '))
-                    actualizar_producto(p, N_nombre, N_precio, N_cantidad)
+                    src.inventario.actualizar_producto(N_nombre, N_precio, N_cantidad)
                 else:
                     print('Producto no encontrado\n')
                     
@@ -61,7 +64,7 @@ while True:
              for producto in inventario:
                if producto['Nombre'].lower() == eliminar_p.lower():
                    print('Producto encontrado')
-                   eliminar_producto(producto)
+                   src.inventario.eliminar_producto(producto)
                    print(f'Producto {producto['Nombre']} eliminado\n')
                    break
                else:
@@ -70,7 +73,7 @@ while True:
                  
         
     elif opcion == 5:
-        calcular_estadisticas()
+        src.inventario.calcular_estadisticas()
         
 
     elif opcion == 6:
