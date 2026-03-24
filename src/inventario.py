@@ -23,7 +23,7 @@ def agregar_producto(nombre, precio, cantidad):
 
         print(f"Producto '{nombre}' agregado al inventario.\n")
 
-def ver_inventario():
+def ver_inventario(inventario):
     if len(inventario) == 0:
         print('El inventario está vacío')
     else:
