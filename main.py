@@ -1,18 +1,26 @@
 import time
+<<<<<<< HEAD
 from src.inventario import *
+=======
+
+import servicios
+
+
+inventario = []
+>>>>>>> 96e810b0bb2f5c78e8be202b01e2d219daa64127
 
 
 while True:
-    menu()
-    while True:
+ servicios.menu()
+ while True:
         try:
             opcion = int(input("Ingrese una opción\n"))
             break
         except ValueError:
             print("Error: Por favor, ingrese un número válido.\n")
-            menu()
+            servicios.menu()
 
-    if opcion == 1:
+ if opcion == 1:
         nombre = input("Nombre del producto: ")
         while True:
             try:
@@ -29,16 +37,23 @@ while True:
             except ValueError:
                 print('Ingrese un numero entero positivo')
 
-        agregar_producto(nombre, precio, cantidad)
+        servicios.agregar_producto(inventario,nombre, precio, cantidad)
         
 
-    elif opcion == 2:
-        ver_inventario()
+ elif opcion == 2:
+        servicios.ver_inventario(inventario)
         print('')
-
-    elif opcion == 3:
+        
+ elif opcion == 3:
         if len(inventario) == 0:
-            print('El inventario está vacío\n')
+            print('El inventario está vacío')
+        else:
+            nombre_buscar = input('Nombre del producto: ')
+            print(servicios.buscar_producto(inventario, nombre_buscar))
+
+ elif opcion == 4:
+        if len(inventario) == 0:
+            print('El inventario está vacío')
         else:
             p_actualizar = input('Que producto desea actualizar: ')
             for p in inventario:
@@ -47,36 +62,30 @@ while True:
                     N_nombre = input('Nuevo nombre: ')
                     N_precio = float(input('Nuevo precio: '))
                     N_cantidad = int(input('Nueva cantidad: '))
-                    actualizar_producto(p, N_nombre, N_precio, N_cantidad)
+                    servicios.actualizar_producto(p,N_nombre, N_precio, N_cantidad)
                 else:
-                    print('Producto no encontrado\n')
+                    print('Producto no encontrado')
                     
                     
-    elif opcion == 4:
+ elif opcion == 5:
         if len(inventario) == 0:
-            print('El inventario está vacío\n')
+            print('El inventario está vacío')
         else:
              eliminar_p = input('Que producto desea eliminar: ')
+             servicios.eliminar_producto(inventario, eliminar_p)
              
-             for producto in inventario:
-               if producto['Nombre'].lower() == eliminar_p.lower():
-                   print('Producto encontrado')
-                   eliminar_producto(producto)
-                   print(f'Producto {producto['Nombre']} eliminado\n')
-                   break
-               else:
-                   print(f'Producto {eliminar_p} no existe')
+             
                  
                  
         
-    elif opcion == 5:
-        calcular_estadisticas()
+ elif opcion == 6:
+        print(servicios.calcular_estadisticas(inventario))
         
 
-    elif opcion == 6:
+ elif opcion == 7:
         print('Saliendo...')
         time.sleep(1)
         break
     
-    else:
-        print('Ingresa una opcion del menú\n')
+ else:
+        print('Ingresa una opcion del menú')

@@ -1,49 +1,54 @@
+<<<<<<< HEAD
 def menu():
+=======
+>>>>>>> 96e810b0bb2f5c78e8be202b01e2d219daa64127
 
-    print("=== MENU PRINCIPAL ===")
-    print("1. Agregar un producto")
-    print("2. Mostrar inventario")
-    print("3. Actualizar producto")
-    print("4. Eliminar producto")
-    print("5. Calcular estadísticas")
-    print("6. Salir")
+# def menu():
+
+#     print("=== MENU PRINCIPAL ===")
+#     print("1. Agregar un producto")
+#     print("2. Mostrar inventario")
+#     print("3. Actualizar producto")
+#     print("4. Eliminar producto")
+#     print("5. Calcular estadísticas")
+#     print("6. Salir")
 
 
-inventario = []
 
-def agregar_producto(nombre, precio, cantidad):
+
+# def agregar_producto(inventario,nombre, precio, cantidad):
         
-        producto = {
-            'Nombre': nombre,
-            'Precio': precio,
-            'Cantidad': cantidad
-        }
-        inventario.append(producto)
+#         producto = {
+#             'Nombre': nombre,
+#             'Precio': precio,
+#             'Cantidad': cantidad
+#         }
+#         inventario.append(producto)
 
-        print(f"Producto '{nombre}' agregado al inventario.\n")
+#         print(f"Producto '{nombre}' agregado al inventario.\n")
 
-def ver_inventario():
-    if len(inventario) == 0:
-        print('El inventario está vacío')
-    else:
-        for i in inventario:
-            print(f'Nombre: {i['Nombre']} | Precio: {i['Precio']}$ | Cantidad: {i['Cantidad']} unidades')
+# def ver_inventario(inventario):
+#     if len(inventario) == 0:
+#         print('El inventario está vacío')
+#     else:
+#         for i in inventario:
+#             print(f'Nombre: {i['Nombre']} | Precio: {i['Precio']}$ | Cantidad: {i['Cantidad']} unidades')
 
-def actualizar_producto(p, N_nombre, N_precio, N_cantidad):
-        p['Nombre'] = N_nombre
-        p['Precio'] = N_precio
-        p['Cantidad'] = N_cantidad
-        print("Producto actualizado correctamente.\n")
+# def actualizar_producto(p, N_nombre, N_precio, N_cantidad):
+#         p['Nombre'] = N_nombre
+#         p['Precio'] = N_precio
+#         p['Cantidad'] = N_cantidad
+#         print("Producto actualizado correctamente.\n")
         
         
-def eliminar_producto(eliminar_p):
-    inventario.remove(eliminar_p)
+# def eliminar_producto(inventario,eliminar_p):
+#     inventario.remove(eliminar_p)
     
-def calcular_estadisticas():
-    contar = len(inventario)
-    total = sum(productos['Precio'] * productos['Cantidad'] for productos in inventario)
-    print(f'La cantidad total de productos es: {contar}')
-    print(f'El valor total del inventario es: {total}$')
-    print('')
+# def calcular_estadisticas(inventario):
+#     contar = len(inventario)
+#     total = sum(productos['Precio'] * productos['Cantidad'] for productos in inventario)
+#     print(f'La cantidad total de productos es: {contar}')
+#     print(f'El valor total del inventario es: {total}$')
+#     print('')
     
 
