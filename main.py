@@ -1,4 +1,4 @@
-
+import time
 from src.inventario import *
 
 

@@ -1,4 +1,3 @@
-import time
 def menu():
 
     print("=== MENU PRINCIPAL ===")
