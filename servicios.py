@@ -7,7 +7,9 @@ def menu():
     print("4. Actualizar producto")
     print("5. Eliminar producto")
     print("6. Calcular estadísticas")
-    print("7. Salir")
+    print("7. Guardar CSV")
+    print("8. Cargar CSV")
+    print("9. Salir")
 
 
 
@@ -28,7 +30,7 @@ def ver_inventario(inventario):
         print('El inventario está vacío')
     else:
         for i in inventario:
-            print(f'Nombre: {i['Nombre']} | Precio: {i['Precio']}$ | Cantidad: {i['Cantidad']} unidades')
+            print(f'Nombre: {i['nombre']} | Precio: {i['precio']}$ | Cantidad: {i['cantidad']} unidades')
             
             
             
@@ -51,11 +53,9 @@ def eliminar_producto(inventario,eliminar_p):
                if producto['Nombre'].lower() == eliminar_p.lower():
                    print('Producto encontrado')
                    inventario.remove(producto)
-                   print(f'Producto {producto['Nombre']} eliminado\n')
-                   
-                   break
-               else:
-                   print(f'Producto {eliminar_p} no existe')
+                   print(f'Producto {producto['Nombre']} eliminado')
+               
+    print(f'Producto {eliminar_p} no existe')
     
     
 def calcular_estadisticas(inventario):

@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-def menu():
-=======
->>>>>>> 96e810b0bb2f5c78e8be202b01e2d219daa64127
 
 # def menu():
 

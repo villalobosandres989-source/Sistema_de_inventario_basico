@@ -1,13 +1,9 @@
 import time
-<<<<<<< HEAD
-from src.inventario import *
-=======
-
 import servicios
+from archivos import guardar_csv, cargar_csv
 
 
 inventario = []
->>>>>>> 96e810b0bb2f5c78e8be202b01e2d219daa64127
 
 
 while True:
@@ -17,7 +13,7 @@ while True:
             opcion = int(input("Ingrese una opción\n"))
             break
         except ValueError:
-            print("Error: Por favor, ingrese un número válido.\n")
+            print("Error: Por favor, ingrese un número válido.")
             servicios.menu()
 
  if opcion == 1:
@@ -76,13 +72,23 @@ while True:
              
              
                  
-                 
-        
  elif opcion == 6:
-        print(servicios.calcular_estadisticas(inventario))
-        
+        if len(inventario) == 0:
+             print('El inventario está vacío')
+        else:
+            print(servicios.calcular_estadisticas(inventario))
+
 
  elif opcion == 7:
+    ruta = input("Ingrese la ruta del archivo (ej: inventario.csv): ")
+    guardar_csv(inventario, ruta)
+
+ elif opcion == 8:
+       ruta = input("Ingrese la ruta del archivo a cargar: ")
+       inventario = cargar_csv(ruta, inventario)
+       
+
+ elif opcion == 9:
         print('Saliendo...')
         time.sleep(1)
         break
