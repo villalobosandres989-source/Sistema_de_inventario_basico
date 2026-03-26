@@ -7,8 +7,8 @@ inventario = []
 
 
 while True:
- servicios.menu()
- while True:
+    servicios.menu()
+    while True:
         try:
             opcion = int(input("Ingrese una opción\n"))
             break
@@ -16,8 +16,14 @@ while True:
             print("Error: Por favor, ingrese un número válido.")
             servicios.menu()
 
- if opcion == 1:
-        nombre = input("Nombre del producto: ")
+    if opcion == 1:
+        while True:
+            nombre = input("Nombre del producto: ")
+            if nombre == '':
+                print('Por favor ingrese un nombre')
+                continue
+            else:
+                break
         while True:
             try:
 
@@ -36,18 +42,18 @@ while True:
         servicios.agregar_producto(inventario,nombre, precio, cantidad)
         
 
- elif opcion == 2:
+    elif opcion == 2:
         servicios.ver_inventario(inventario)
         print('')
         
- elif opcion == 3:
+    elif opcion == 3:
         if len(inventario) == 0:
             print('El inventario está vacío')
         else:
             nombre_buscar = input('Nombre del producto: ')
             print(servicios.buscar_producto(inventario, nombre_buscar))
 
- elif opcion == 4:
+    elif opcion == 4:
         if len(inventario) == 0:
             print('El inventario está vacío')
         else:
@@ -63,35 +69,33 @@ while True:
                     print('Producto no encontrado')
                     
                     
- elif opcion == 5:
+    elif opcion == 5:
         if len(inventario) == 0:
             print('El inventario está vacío')
         else:
-             eliminar_p = input('Que producto desea eliminar: ')
-             servicios.eliminar_producto(inventario, eliminar_p)
-             
-             
-                 
- elif opcion == 6:
+            eliminar_p = input('Que producto desea eliminar: ')
+            servicios.eliminar_producto(inventario, eliminar_p)
+    
+    elif opcion == 6:
         if len(inventario) == 0:
-             print('El inventario está vacío')
+            print('El inventario está vacío')
         else:
             print(servicios.calcular_estadisticas(inventario))
 
 
- elif opcion == 7:
-    ruta = input("Ingrese la ruta del archivo (ej: inventario.csv): ")
-    guardar_csv(inventario, ruta)
+    elif opcion == 7:
+        ruta = input("Ingrese la ruta del archivo (ej: inventario.csv): ")
+        guardar_csv(inventario, ruta)
 
- elif opcion == 8:
-       ruta = input("Ingrese la ruta del archivo a cargar: ")
-       inventario = cargar_csv(ruta, inventario)
-       
+    elif opcion == 8:
+        ruta = input("Ingrese la ruta del archivo a cargar: ")
+        inventario = cargar_csv(ruta, inventario)
+    
 
- elif opcion == 9:
+    elif opcion == 9:
         print('Saliendo...')
         time.sleep(1)
         break
     
- else:
+    else:
         print('Ingresa una opcion del menú')

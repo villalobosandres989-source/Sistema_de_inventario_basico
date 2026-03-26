@@ -34,7 +34,7 @@ def cargar_csv(ruta, inventario_actual):
 
             encabezado = next(reader, None)
             if encabezado != ["Nombre", "Precio", "Cantidad"]:
-                print("Error: Encabezado inválido. Debe ser: nombre,precio,cantidad")
+                print("Error: Encabezado inválido. Debe ser: Nombre,Precio,Cantidad")
                 return inventario_actual
                 
             for fila in reader:
@@ -52,9 +52,9 @@ def cargar_csv(ruta, inventario_actual):
                         raise ValueError
 
                     producto = {
-                        "nombre": nombre.strip(),
-                        "precio": precio,
-                        "cantidad": cantidad
+                        "Nombre": nombre.strip(),
+                        "Precio": precio,
+                        "Cantidad": cantidad
                     }
 
                     productos_cargados.append(producto)
@@ -79,16 +79,16 @@ def cargar_csv(ruta, inventario_actual):
         accion = "reemplazo"
 
     else:
-        nombres_existentes = {p["nombre"]: p for p in inventario_actual}
+        nombres_existentes = {p["Nombre"]: p for p in inventario_actual}
 
         for prod in productos_cargados:
-            if prod["nombre"] in nombres_existentes:
-                existente = nombres_existentes[prod["nombre"]]
+            if prod["Nombre"] in nombres_existentes:
+                existente = nombres_existentes[prod["Nombre"]]
                 
-                existente["cantidad"] += prod["cantidad"]
+                existente["Cantidad"] += prod["Cantidad"]
 
-                if existente["precio"] != prod["precio"]:
-                    existente["precio"] = prod["precio"]
+                if existente["Precio"] != prod["Precio"]:
+                    existente["Precio"] = prod["Precio"]
             else:
                 inventario_actual.append(prod)
 

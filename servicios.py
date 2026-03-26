@@ -30,7 +30,7 @@ def ver_inventario(inventario):
         print('El inventario está vacío')
     else:
         for i in inventario:
-            print(f'Nombre: {i['nombre']} | Precio: {i['precio']}$ | Cantidad: {i['cantidad']} unidades')
+            print(f'Nombre: {i['Nombre']} | Precio: {i['Precio']}$ | Cantidad: {i['Cantidad']} unidades')
             
             
             
@@ -50,22 +50,22 @@ def actualizar_producto(inventario, N_nombre, N_precio, N_cantidad):
         
 def eliminar_producto(inventario,eliminar_p):
     for producto in inventario:
-               if producto['Nombre'].lower() == eliminar_p.lower():
-                   print('Producto encontrado')
-                   inventario.remove(producto)
-                   print(f'Producto {producto['Nombre']} eliminado')
-               
+            if producto['Nombre'].lower() == eliminar_p.lower():
+                print('Producto encontrado')
+                inventario.remove(producto)
+                print(f'Producto {producto['Nombre']} eliminado')
+            
     print(f'Producto {eliminar_p} no existe')
     
     
 def calcular_estadisticas(inventario):
-    contar = len(inventario)
-    total = sum(productos['Precio'] * productos['Cantidad'] for productos in inventario)
+    p_totales = len(inventario)
+    suma_total = sum(productos['Precio'] * productos['Cantidad'] for productos in inventario)
     producto_mas_caro = max(inventario, key=lambda x: x['Precio'])
     producto_mayor_stock = max(inventario, key=lambda x: x['Cantidad'])
     return {
-        'Productos totales': contar,
-        'Valor total': total,
+        'Productos totales': p_totales,
+        'Valor total': suma_total,
         'Producto mas caro': f'Nombre: {producto_mas_caro['Nombre']} || Precio: {producto_mas_caro['Precio']}$',
         'Producto mayor stock': f'Nombre: {producto_mayor_stock['Nombre']} || Cantidad: {producto_mayor_stock['Cantidad']} unidades'
         }
