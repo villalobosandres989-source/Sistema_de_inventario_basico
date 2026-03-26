@@ -32,13 +32,11 @@ def cargar_csv(ruta, inventario_actual):
         with open(ruta, mode="r", newline="", encoding="utf-8") as archivo:
             reader = csv.reader(archivo)
 
-            # Validar encabezado
             encabezado = next(reader, None)
             if encabezado != ["Nombre", "Precio", "Cantidad"]:
                 print("Error: Encabezado inválido. Debe ser: nombre,precio,cantidad")
                 return inventario_actual
-
-            # Leer filas
+                
             for fila in reader:
                 if len(fila) != 3:
                     filas_invalidas += 1
@@ -65,16 +63,15 @@ def cargar_csv(ruta, inventario_actual):
                     filas_invalidas += 1
 
     except FileNotFoundError:
-        print("❌ Error: Archivo no encontrado.")
+        print("Error: Archivo no encontrado.")
         return inventario_actual
     except UnicodeDecodeError:
-        print("❌ Error: Problema de codificación en el archivo.")
+        print("Error: Problema de codificación en el archivo.")
         return inventario_actual
     except Exception as e:
-        print(f"❌ Error inesperado: {e}")
+        print(f"Error inesperado: {e}")
         return inventario_actual
-
-    # Preguntar acción al usuario
+        
     opcion = input("¿Sobrescribir inventario actual? (S/N): ").strip().upper()
 
     if opcion == "S":
@@ -82,21 +79,14 @@ def cargar_csv(ruta, inventario_actual):
         accion = "reemplazo"
 
     else:
-        # 🔥 FUSIÓN INTELIGENTE
-        # Política:
-        # - Si existe: suma cantidad
-        # - Si precio cambia: se actualiza al nuevo
-
         nombres_existentes = {p["nombre"]: p for p in inventario_actual}
 
         for prod in productos_cargados:
             if prod["nombre"] in nombres_existentes:
                 existente = nombres_existentes[prod["nombre"]]
-
-                # Sumar cantidad
+                
                 existente["cantidad"] += prod["cantidad"]
 
-                # Actualizar precio si es diferente
                 if existente["precio"] != prod["precio"]:
                     existente["precio"] = prod["precio"]
             else:
@@ -104,11 +94,10 @@ def cargar_csv(ruta, inventario_actual):
 
         accion = "fusión (cantidad sumada y precio actualizado si cambia)"
 
-    # Resumen final
-    print("\n📊 RESUMEN DE CARGA:")
-    print(f"✔ Productos cargados: {len(productos_cargados)}")
-    print(f"⚠ Filas inválidas omitidas: {filas_invalidas}")
-    print(f"🔄 Acción realizada: {accion}")
+    print("RESUMEN DE CARGA:")
+    print(f"Productos cargados: {len(productos_cargados)}")
+    print(f"Filas inválidas omitidas: {filas_invalidas}")
+    print(f"Acción realizada: {accion}")
 
     return inventario_actual
     
