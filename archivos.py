@@ -29,7 +29,7 @@ def cargar_csv(ruta, inventario_actual):
     filas_invalidas = 0
 
     try:
-        with open(ruta, mode="r", newline="", encoding="utf-8") as archivo:
+        with open(ruta, mode="r", newline="") as archivo:
             reader = csv.reader(archivo)
 
             encabezado = next(reader, None)
