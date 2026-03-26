@@ -3,26 +3,25 @@ import csv
 
 def guardar_csv(inventario, ruta, incluir_header=True):
     if not inventario:
-        print('El inventario está vacío')
+        print("El inventario está vacío")
         return
     try:
-        with open(ruta, 'w', newline='') as archivo:
+        with open(ruta, "w", newline="") as archivo:
             writer = csv.writer(archivo)
 
             if incluir_header:
-                writer.writerow(['Nombre', 'Precio', 'Cantidad'])
-            
+                writer.writerow(["Nombre", "Precio", "Cantidad"])
+
             for producto in inventario:
-                writer.writerow([
-                    producto['Nombre'],
-                    producto['Precio'],
-                    producto['Cantidad']
-                ])
-        print(f'Invetario guardado en: {ruta}')
+                writer.writerow(
+                    [producto["Nombre"], producto["Precio"], producto["Cantidad"]]
+                )
+        print(f"Invetario guardado en: {ruta}")
     except PermissionError:
         print("Error: No tienes permisos para escribir en esa ruta.")
     except Exception as e:
         print(f"Error inesperado al guardar: {e}")
+
 
 def cargar_csv(ruta, inventario_actual):
     productos_cargados = []
@@ -36,7 +35,7 @@ def cargar_csv(ruta, inventario_actual):
             if encabezado != ["Nombre", "Precio", "Cantidad"]:
                 print("Error: Encabezado inválido. Debe ser: Nombre,Precio,Cantidad")
                 return inventario_actual
-                
+
             for fila in reader:
                 if len(fila) != 3:
                     filas_invalidas += 1
@@ -54,7 +53,7 @@ def cargar_csv(ruta, inventario_actual):
                     producto = {
                         "Nombre": nombre.strip(),
                         "Precio": precio,
-                        "Cantidad": cantidad
+                        "Cantidad": cantidad,
                     }
 
                     productos_cargados.append(producto)
@@ -71,7 +70,7 @@ def cargar_csv(ruta, inventario_actual):
     except Exception as e:
         print(f"Error inesperado: {e}")
         return inventario_actual
-        
+
     opcion = input("¿Sobrescribir inventario actual? (S/N): ").strip().upper()
 
     if opcion == "S":
@@ -84,7 +83,7 @@ def cargar_csv(ruta, inventario_actual):
         for prod in productos_cargados:
             if prod["Nombre"] in nombres_existentes:
                 existente = nombres_existentes[prod["Nombre"]]
-                
+
                 existente["Cantidad"] += prod["Cantidad"]
 
                 if existente["Precio"] != prod["Precio"]:
@@ -100,4 +99,3 @@ def cargar_csv(ruta, inventario_actual):
     print(f"Acción realizada: {accion}")
 
     return inventario_actual
-    
