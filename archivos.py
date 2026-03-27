@@ -1,101 +1,110 @@
-import csv
+import csv # Importa el módulo csv para trabajar con archivos tipo CSV
 
 
-def guardar_csv(inventario, ruta, incluir_header=True):
-    if not inventario:
-        print("El inventario está vacío")
-        return
-    try:
-        with open(ruta, "w", newline="") as archivo:
-            writer = csv.writer(archivo)
+def guardar_csv(inventario, ruta, incluir_header=True): # Define la función para guardar datos en CSV
+    if len(inventario) == 0: # Verifica si el inventario está vacío
+        print("El inventario está vacío") # Muestra mensaje si no hay datos
+        return # Termina la función
+    
+    try: # Inicia manejo de errores
+        with open(ruta, "w", newline="", encoding='utf-8') as archivo: # Abre el archivo en modo escritura
+            writer = csv.writer(archivo) # Crea un objeto para escribir en el CSV
 
-            if incluir_header:
-                writer.writerow(["Nombre", "Precio", "Cantidad"])
+            if incluir_header: # Verifica si se debe incluir encabezado
+                writer.writerow(["Nombre", "Precio", "Cantidad"]) # Escribe la fila de títulos
 
-            for producto in inventario:
-                writer.writerow(
-                    [producto["Nombre"], producto["Precio"], producto["Cantidad"]]
+
+            for producto in inventario: # Recorre cada producto del inventario
+
+                writer.writerow( # Escribe una fila en el archivo
+                    [producto["Nombre"], producto["Precio"], producto["Cantidad"]] # Datos del producto
                 )
-        print(f"Invetario guardado en: {ruta}")
-    except PermissionError:
-        print("Error: No tienes permisos para escribir en esa ruta.")
-    except Exception as e:
-        print(f"Error inesperado al guardar: {e}")
+        print(f"Invetario guardado en: {ruta}") # Mensaje de éxito
+
+    except PermissionError: # Error si no tienes permisos para escribir
+
+        print("Error: No tienes permisos para escribir en esa ruta.") # Mensaje de error
+
+    except Exception as e: # Captura cualquier otro error
+        print(f"Error inesperado al guardar: {e}") # Muestra el error
 
 
-def cargar_csv(ruta, inventario_actual):
-    productos_cargados = []
-    filas_invalidas = 0
+def cargar_csv(ruta, inventario_actual): # Define función para cargar datos desde CSV
+    productos_cargados = [] # Lista para guardar productos válidos
+    filas_invalidas = 0 # Contador de filas con errores
 
-    try:
-        with open(ruta, mode="r", newline="") as archivo:
-            reader = csv.reader(archivo)
+    try: # Inicia manejo de errores
+        with open(ruta, "r", newline="", encoding='utf-8') as archivo: # Abre el archivo en modo lectura
+            reader = csv.reader(archivo) # Crea un lector de CSV
 
-            encabezado = next(reader, None)
-            if encabezado != ["Nombre", "Precio", "Cantidad"]:
-                print("Error: Encabezado inválido. Debe ser: Nombre,Precio,Cantidad")
-                return inventario_actual
+            encabezado = next(reader, None) # Lee la primera fila (encabezado)
+            if encabezado != ["Nombre", "Precio", "Cantidad"]: # Verifica si el encabezado es correcto
+                print("Error: Encabezado inválido. Debe ser: Nombre,Precio,Cantidad") # Mensaje de error
+                return inventario_actual # Devuelve el inventario sin cambios
 
-            for fila in reader:
-                if len(fila) != 3:
-                    filas_invalidas += 1
-                    continue
+            for fila in reader: # Recorre cada fila del archivo
+                if len(fila) != 3: # Verifica que la fila tenga 3 columnas
+                    filas_invalidas += 1 # Cuenta la fila como inválida
+                    continue # Salta a la siguiente fila
 
-                nombre, precio, cantidad = fila
+                nombre, precio, cantidad = fila # Asigna cada valor a una variable
 
-                try:
-                    precio = float(precio)
-                    cantidad = int(cantidad)
+                try: # Intenta convertir y validar datos
+                    precio = float(precio) # Convierte precio a número decimal
+                    cantidad = int(cantidad) # Convierte cantidad a entero
 
-                    if precio < 0 or cantidad < 0:
-                        raise ValueError
+                    if precio < 0 or cantidad < 0: # Verifica que no sean negativos
+                        raise ValueError # Lanza error si son inválidos
 
-                    producto = {
-                        "Nombre": nombre.strip(),
-                        "Precio": precio,
-                        "Cantidad": cantidad,
+                    producto = { # Crea un diccionario con el producto
+                        "Nombre": nombre.strip(), # Elimina espacios del nombre
+                        "Precio": precio, # Guarda el precio
+                        "Cantidad": cantidad, # Guarda la cantidad
                     }
 
-                    productos_cargados.append(producto)
+                    productos_cargados.append(producto)  # Agrega el producto a la lista
 
-                except ValueError:
-                    filas_invalidas += 1
+                except ValueError:  # Si hay error en conversión o validación
+                    filas_invalidas += 1  # Cuenta la fila como inválida
 
-    except FileNotFoundError:
-        print("Error: Archivo no encontrado.")
-        return inventario_actual
-    except UnicodeDecodeError:
-        print("Error: Problema de codificación en el archivo.")
-        return inventario_actual
-    except Exception as e:
-        print(f"Error inesperado: {e}")
-        return inventario_actual
+    except FileNotFoundError:  # Si el archivo no existe
+        print("Error: Archivo no encontrado.")  # Mensaje de error
+        return inventario_actual  # Devuelve inventario original
 
-    opcion = input("¿Sobrescribir inventario actual? (S/N): ").strip().upper()
+    except UnicodeDecodeError:  # Si hay error de codificación
+        print("Error: Problema de codificación en el archivo.")  # Mensaje
+        return inventario_actual  # Devuelve inventario original
 
-    if opcion == "S":
-        inventario_actual = productos_cargados
-        accion = "reemplazo"
+    except Exception as e:  # Cualquier otro error
+        print(f"Error inesperado: {e}")  # Muestra error
+        return inventario_actual  # Devuelve inventario original
 
-    else:
-        nombres_existentes = {p["Nombre"]: p for p in inventario_actual}
+    opcion = input("¿Sobrescribir inventario actual? (S/N): ").strip().upper()  # Pide decisión al usuario
 
-        for prod in productos_cargados:
-            if prod["Nombre"] in nombres_existentes:
-                existente = nombres_existentes[prod["Nombre"]]
+    if opcion == "S":  # Si el usuario quiere reemplazar
+        inventario_actual = productos_cargados  # Sustituye todo el inventario
+        accion = "reemplazo"  # Guarda tipo de acción
 
-                existente["Cantidad"] += prod["Cantidad"]
+    else:  # Si el usuario quiere fusionar
+        nombres_existentes = {p["Nombre"]: p for p in inventario_actual}  # Crea diccionario para búsqueda rápida
 
-                if existente["Precio"] != prod["Precio"]:
-                    existente["Precio"] = prod["Precio"]
-            else:
-                inventario_actual.append(prod)
+        for prod in productos_cargados:  # Recorre productos cargados
+            if prod["Nombre"] in nombres_existentes:  # Si el producto ya existe
+                existente = nombres_existentes[prod["Nombre"]]  # Obtiene el producto existente
 
-        accion = "fusión (cantidad sumada y precio actualizado si cambia)"
+                existente["Cantidad"] += prod["Cantidad"]  # Suma la cantidad
 
-    print("RESUMEN DE CARGA:")
-    print(f"Productos cargados: {len(productos_cargados)}")
-    print(f"Filas inválidas omitidas: {filas_invalidas}")
-    print(f"Acción realizada: {accion}")
+                if existente["Precio"] != prod["Precio"]:  # Si el precio es diferente
+                    existente["Precio"] = prod["Precio"]  # Actualiza el precio
 
-    return inventario_actual
+            else:  # Si el producto no existe
+                inventario_actual.append(prod)  # Lo agrega al inventario
+
+        accion = "fusión (cantidad sumada y precio actualizado si cambia)"  # Describe la acción
+
+    print("RESUMEN DE CARGA:")  # Título del resumen
+    print(f"Productos cargados: {len(productos_cargados)}")  # Muestra cantidad de productos válidos
+    print(f"Filas inválidas omitidas: {filas_invalidas}")  # Muestra errores
+    print(f"Acción realizada: {accion}")  # Muestra qué se hizo
+
+    return inventario_actual  # Devuelve el inventario actualizado
